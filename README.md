@@ -200,7 +200,7 @@ max 98.000000
 
 结合它的销售策略来看,（这个图是从它官网下载所得）
 
-![2017-2018年涉事药企14个省份占有情况](https://github.com/fuckcqcs/fuckcqcs/raw/master/img/buyer.png)
+![销售策略](https://github.com/fuckcqcs/fuckcqcs/raw/master/img/buyer.png)
 
 销售的情况比它想象的要好呢，
 
