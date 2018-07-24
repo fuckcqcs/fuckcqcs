@@ -1,7 +1,3 @@
-[![Build Status](https://img.shields.io/github/stars/fuckcqcs/fuckcqcs.svg)](https://github.com/fuckcqcs/fuckcqcs)
-[![Build Status](https://img.shields.io/github/forks/fuckcqcs/fuckcqcs.svg)](https://github.com/fuckcqcs/fuckcqcs)
-[![Build Status](https://img.shields.io/badge/README-切换语言-yellow.svg)](README_zh.md)
-
 ## 前言
 本文首发于个人的公众号和v2ex，事先也没想到会有这么多人关注。
 
