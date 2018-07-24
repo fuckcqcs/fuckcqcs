@@ -28,6 +28,8 @@
 
 1. 直接在浏览器打开 `tianyancha_visual_data.htm`。
 
+![img](static/645047D0-2B00-47fb-84F5-2CF03F221D54.png)
+
 ### 参考
 
 1. 中国政府采购网：[www.ccgp.gov.cn](www.ccgp.gov.cn)
