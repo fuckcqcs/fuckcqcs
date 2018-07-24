@@ -59,7 +59,7 @@ The follow-up updates will publish on github.
 This repo is based on the point of view of technology. I will try to keep the objectivity。
 
 ## Few Things to Notice
-- The data range is between 2016 to 2018
+- The data range is between 2016 and 2018
     - Each province is using one data based on the newest data.
     - I omit the additional data (Each year, after the government purchased the initial vaccines, there would be second, thrid and etc. purchases. )
 - The data I am talking about
@@ -76,7 +76,7 @@ This repo is based on the point of view of technology. I will try to keep the ob
 - What's your purpose to do this?
     -  As a programmer, I naturally thought about other vaccines batches after one type of vaccine was reported fake.
     -  But when I tried to access their website, their website was shout down. I could only search manually.
-    -  And then kept the key words of seaching to prepare for the future.
+    -  And then kept the key words of searching to prepare for the future.
 - Did you use the robot to access the data?
     -  No! I searched and downloaded them manually, and I used script to process them.
     -  All the data comes from the government website(such as CDC).
