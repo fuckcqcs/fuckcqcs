@@ -1,6 +1,6 @@
 ## Language Preference/语言选择
-[English](##Background)
-[简体中文](##前言)
+[English](#background) <br>
+[简体中文](#前言)
 ## 前言
 本文首发于个人的公众号和v2ex，事先也没想到会有这么多人关注。
 
