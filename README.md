@@ -1,6 +1,8 @@
+# fuckcqcs
+
 [![Build Status](https://img.shields.io/github/stars/fuckcqcs/fuckcqcs.svg)](https://github.com/fuckcqcs/fuckcqcs)
 [![Build Status](https://img.shields.io/github/forks/fuckcqcs/fuckcqcs.svg)](https://github.com/fuckcqcs/fuckcqcs)
-[![Build Status](https://img.shields.io/badge/README-切换语言-yellow.svg)](README_zh.md)
+[![Build Status](https://img.shields.io/badge/README-中文-yellow.svg)](README_zh.md)
 
 ## Background
 Recently, a pharmaceutical company in China, Changchun Changsheng vaccine, is found and reported that they produced fake anti-rabies vaccines and DPT vaccines. As a programmer, the thing I can do is collecting the data from the CDC website of each province and see the distribution that the company (and other companies which are also involved in this scandal ) sold from 2016 to 2018. 
