@@ -1,3 +1,5 @@
 http://www.gxyxzb.gov.cn:8001/guawang_sys/index_gw.asp?guawangid=FCK17223820171020t
 
+iframe url: http://www.gxyxzb.gov.cn:8001/guawang_sys/guawang_tables.asp?guawangid=FCK15101320171027t
+
 整个页面使用的是一个iframe，无法通过复制黏贴来提取text的内容。最好的办法是把iframe的URL打开，然后将页面的table复制到本地后格式化。但是仍然是很低效率的方法。参见本文件夹里的广西.html文件。
