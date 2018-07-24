@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>F_CCCS</title>
+    <!-- including ECharts file -->
+    <script src="static/echarts.js"></script>
+    <script src="static/china.js"></script>
+</head>
+<body>
+<!-- prepare a DOM container with width and height -->
+<div id="main" style="width: 100%;height:700px;"></div>
+<script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        var geoCoordMap = {
+            '甘肃省':[103.73, 36.03],
+            '青海省':[101.74, 36.56],
+            '四川省':[104.06, 30.67],
+            '河北省':[114.48, 38.03],
+            '云南省':[102.73, 25.04],
+            '贵州省':[106.71, 26.57],
+            '湖北省':[114.31, 30.52],
+            '河南省':[113.65, 34.76],
+            '山东省':[117, 36.65],
+            '江苏省':[118.78, 32.04],
+            '安徽省':[117.27, 31.86],
+            '浙江省':[120.19, 30.26],
+            '江西省':[115.89, 28.68],
+            '福建省':[119.3, 26.08],
+            '广东省':[113.23, 23.16],
+            '湖南省':[113, 28.21],
+            '海南省':[110.35, 20.02],
+            '辽宁省':[123.38, 41.8],
+            '吉林省':[125.35, 43.88],
+            '黑龙江省':[126.63, 45.75],
+            '山西省':[112.53, 37.87],
+            '陕西省':[108.95, 34.27],
+            '台湾':[121.30, 25.03],
+            '北京市':[116.46, 39.92],
+            '上海市':[121.48, 31.22],
+            '重庆市':[106.54, 29.59],
+            '天津市':[117.2, 39.13],
+            '内蒙古自治区':[111.65, 40.82],
+            '广西壮族自治区':[108.33, 22.84],
+            '西藏自治区':[91.11, 29.97],
+            '宁夏回族自治区':[106.27, 38.47],
+            '新疆维吾尔自治区':[87.68, 43.77],
+            '香港特别行政区':[114.17, 22.28],
+            '澳门特别行政区':[113.54, 22.19],
+            '海门市':[121.15, 31.89],
+            '鄂尔多斯市':[109.781327, 39.608266],
+            '招远市':[120.38, 37.35],
+            '舟山市':[122.207216, 29.985295],
+            '齐齐哈尔市':[123.97, 47.33],
+            '盐城市':[120.13, 33.38],
+            '赤峰市':[118.87, 42.28],
+            '青岛市':[120.33, 36.07],
+            '乳山市':[121.52, 36.89],
+            '金昌市':[102.188043, 38.520089],
+            '泉州市':[118.58, 24.93],
+            '莱西市':[120.53, 36.86],
+            '日照市':[119.46, 35.42],
+            '胶南市':[119.97, 35.88],
+            '南通市':[121.05, 32.08],
+            '拉萨市':[91.11, 29.97],
+            '云浮市':[112.02, 22.93],
+            '梅州市':[116.1, 24.55],
+            '文登市':[122.05, 37.2],
+            '上海市':[121.48, 31.22],
+            '攀枝花市':[101.718637, 26.582347],
+            '威海市':[122.1, 37.5],
+            '承德市':[117.93, 40.97],
+            '厦门市':[118.1, 24.46],
+            '汕尾市':[115.375279, 22.786211],
+            '潮州市':[116.63, 23.68],
+            '丹东市':[124.37, 40.13],
+            '太仓市':[121.1, 31.45],
+            '曲靖市':[103.79, 25.51],
+            '烟台市':[121.39, 37.52],
+            '福州市':[119.3, 26.08],
+            '瓦房店市':[121.979603, 39.627114],
+            '即墨市':[120.45, 36.38],
+            '抚顺市':[123.97, 41.97],
+            '玉溪市':[102.52, 24.35],
+            '张家口市':[114.87, 40.82],
+            '阳泉市':[113.57, 37.85],
+            '莱州市':[119.942327, 37.177017],
+            '湖州市':[120.1, 30.86],
+            '汕头市':[116.69, 23.39],
+            '昆山市':[120.95, 31.39],
+            '宁波市':[121.56, 29.86],
+            '湛江市':[110.359377, 21.270708],
+            '揭阳市':[116.35, 23.55],
+            '荣成市':[122.41, 37.16],
+            '连云港市':[119.16, 34.59],
+            '葫芦岛市':[120.836932, 40.711052],
+            '常熟市':[120.74, 31.64],
+            '东莞市':[113.75, 23.04],
+            '河源市':[114.68, 23.73],
+            '淮安市':[119.15, 33.5],
+            '泰州市':[119.9, 32.49],
+            '南宁市':[108.33, 22.84],
+            '营口市':[122.18, 40.65],
+            '惠州市':[114.4, 23.09],
+            '江阴市':[120.26, 31.91],
+            '蓬莱市':[120.75, 37.8],
+            '韶关市':[113.62, 24.84],
+            '嘉峪关市':[98.289152, 39.77313],
+            '广州市':[113.23, 23.16],
+            '延安市':[109.47, 36.6],
+            '太原市':[112.53, 37.87],
+            '清远市':[113.01, 23.7],
+            '中山市':[113.38, 22.52],
+            '昆明市':[102.73, 25.04],
+            '寿光市':[118.73, 36.86],
+            '盘锦市':[122.070714, 41.119997],
+            '长治市':[113.08, 36.18],
+            '深圳市':[114.07, 22.62],
+            '珠海市':[113.52, 22.3],
+            '宿迁市':[118.3, 33.96],
+            '咸阳市':[108.72, 34.36],
+            '铜川市':[109.11, 35.09],
+            '平度市':[119.97, 36.77],
+            '佛山市':[113.11, 23.05],
+            '海口市':[110.35, 20.02],
+            '江门市':[113.06, 22.61],
+            '章丘市':[117.53, 36.72],
+            '肇庆市':[112.44, 23.05],
+            '大连市':[121.62, 38.92],
+            '临汾市':[111.5, 36.08],
+            '吴江市':[120.63, 31.16],
+            '石嘴山市':[106.39, 39.04],
+            '沈阳市':[123.38, 41.8],
+            '苏州市':[120.62, 31.32],
+            '茂名市':[110.88, 21.68],
+            '嘉兴市':[120.76, 30.77],
+            '长春市':[125.35, 43.88],
+            '胶州市':[120.03336, 36.264622],
+            '银川市':[106.27, 38.47],
+            '张家港市':[120.555821, 31.875428],
+            '三门峡市':[111.19, 34.76],
+            '锦州市':[121.15, 41.13],
+            '南昌市':[115.89, 28.68],
+            '柳州市':[109.4, 24.33],
+            '三亚市':[109.511909, 18.252847],
+            '自贡市':[104.778442, 29.33903],
+            '吉林市':[126.57, 43.87],
+            '阳江市':[111.95, 21.85],
+            '泸州市':[105.39, 28.91],
+            '西宁市':[101.74, 36.56],
+            '宜宾市':[104.56, 29.77],
+            '呼和浩特市':[111.65, 40.82],
+            '成都市':[104.06, 30.67],
+            '大同市':[113.3, 40.12],
+            '镇江市':[119.44, 32.2],
+            '桂林市':[110.28, 25.29],
+            '张家界市':[110.479191, 29.117096],
+            '宜兴市':[119.82, 31.36],
+            '北海市':[109.12, 21.49],
+            '西安市':[108.95, 34.27],
+            '金坛市':[119.56, 31.74],
+            '东营市':[118.49, 37.46],
+            '牡丹江市':[129.58, 44.6],
+            '遵义市':[106.9, 27.7],
+            '绍兴市':[120.58, 30.01],
+            '扬州市':[119.42, 32.39],
+            '常州市':[119.95, 31.79],
+            '潍坊市':[119.1, 36.62],
+            '重庆市':[106.54, 29.59],
+            '台州市':[121.420757, 28.656386],
+            '南京市':[118.78, 32.04],
+            '滨州市':[118.03, 37.36],
+            '贵阳市':[106.71, 26.57],
+            '无锡市':[120.29, 31.59],
+            '本溪市':[123.73, 41.3],
+            '克拉玛依市':[84.77, 45.59],
+            '渭南市':[109.5, 34.52],
+            '马鞍山市':[118.48, 31.56],
+            '宝鸡市':[107.15, 34.38],
+            '焦作市':[113.21, 35.24],
+            '句容市':[119.16, 31.95],
+            '北京市':[116.46, 39.92],
+            '徐州市':[117.2, 34.26],
+            '衡水市':[115.72, 37.72],
+            '包头市':[110, 40.58],
+            '绵阳市':[104.73, 31.48],
+            '乌鲁木齐市':[87.68, 43.77],
+            '枣庄市':[117.57, 34.86],
+            '杭州市':[120.19, 30.26],
+            '淄博市':[118.05, 36.78],
+            '鞍山市':[122.85, 41.12],
+            '溧阳市':[119.48, 31.43],
+            '库尔勒市':[86.06, 41.68],
+            '安阳市':[114.35, 36.1],
+            '开封市':[114.35, 34.79],
+            '济南市':[117, 36.65],
+            '德阳市':[104.37, 31.13],
+            '温州市':[120.65, 28.01],
+            '九江市':[115.97, 29.71],
+            '邯郸市':[114.47, 36.6],
+            '临安市':[119.72, 30.23],
+            '兰州市':[103.73, 36.03],
+            '沧州市':[116.83, 38.33],
+            '临沂市':[118.35, 35.05],
+            '南充市':[106.110698, 30.837793],
+            '天津市':[117.2, 39.13],
+            '富阳市':[119.95, 30.07],
+            '泰安市':[117.13, 36.18],
+            '诸暨市':[120.23, 29.71],
+            '郑州市':[113.65, 34.76],
+            '哈尔滨市':[126.63, 45.75],
+            '聊城市':[115.97, 36.45],
+            '芜湖市':[118.38, 31.33],
+            '唐山市':[118.02, 39.63],
+            '平顶山市':[113.29, 33.75],
+            '邢台市':[114.48, 37.05],
+            '德州市':[116.29, 37.45],
+            '济宁市':[116.59, 35.38],
+            '荆州市':[112.239741, 30.335165],
+            '宜昌市':[111.3, 30.7],
+            '义乌市':[120.06, 29.32],
+            '丽水市':[119.92, 28.45],
+            '洛阳市':[112.44, 34.7],
+            '秦皇岛市':[119.57, 39.95],
+            '株洲市':[113.16, 27.83],
+            '石家庄市':[114.48, 38.03],
+            '莱芜市':[117.67, 36.19],
+            '常德市':[111.69, 29.05],
+            '保定市':[115.48, 38.85],
+            '湘潭市':[112.91, 27.87],
+            '金华市':[119.64, 29.12],
+            '岳阳市':[113.09, 29.37],
+            '长沙市':[113, 28.21],
+            '衢州市':[118.88, 28.97],
+            '廊坊市':[116.7, 39.53],
+            '菏泽市':[115.480656, 35.23375],
+            '合肥市':[117.27, 31.86],
+            '武汉市':[114.31, 30.52],
+            '大庆市':[125.03, 46.58],
+            '景德镇市':[117.214664, 29.29256],
+            '上饶市':[117.971185, 28.44442],
+            '赣州市':[114.940278, 25.85097],
+            '莆田市':[119.007558, 25.431011],
+            '黄冈市':[114.879365, 30.447711],
+            };
+
+
+var CCDATA = [[{'name': '长春市'}, {'name': '河南省'}, {'name': '关于河南省疾病预防控制中心2012年9月二类疫苗定点采购供应商项目的中标公告'}, {'name': '2012-08-29'}, {'name': 'https://www.tianyancha.com/bid/4b27b36c213811e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2310272'}, {'name': '河南省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '陕西省'}, {'name': '陕西省卫生厅疫苗及注射器采购项目中标公告'}, {'name': '2012-08-27'}, {'name': 'https://www.tianyancha.com/bid/a9a304d3213c11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2307033'}, {'name': '陕西省卫生厅'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '广东省疾病预防控制中心2012年免疫规划疫苗采购（重招）项目成交公告'}, {'name': '2012-08-03'}, {'name': 'https://www.tianyancha.com/bid/a5f5d45e216a11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2264923'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '包头市'}, {'name': '包头市疾病控制中心疫苗资质政府采购公开招标公告中标公告(项目编号=包采公〔2012〕142号)'}, {'name': '2012-05-14'}, {'name': 'https://www.tianyancha.com/bid/a05081a921e111e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2117310'}, {'name': '包头市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '景德镇市'}, {'name': '江西鑫田招标咨询有限公司关于江西省景德镇市卫生局疫苗及注射器项目（文件编号：JXXT2012009）成交公告'}, {'name': '2012-05-08'}, {'name': 'https://www.tianyancha.com/bid/31178e20242d11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2109549'}, {'name': '景德镇市卫生局'}], [{'name': '长春市'}, {'name': '上饶市'}, {'name': '江西上饶市市本级政府采购中心关于上饶市卫生局采购疫苗项目的成交公告'}, {'name': '2012-03-28'}, {'name': 'https://www.tianyancha.com/bid/35f637f7256b11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2050692'}, {'name': '上饶市卫生局'}], [{'name': '长春市'}, {'name': '九江市'}, {'name': '江西省九江市公共资源交易中心政府采购部关于九江市儿童免疫规划一类疫苗采购项目废标后重新招标的中标公告'}, {'name': '2012-03-14'}, {'name': 'https://www.tianyancha.com/bid/f89cd70b258011e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2030799'}, {'name': '九江市卫生局'}], [{'name': '长春市'}, {'name': '甘肃省'}, {'name': '甘肃省疾控中心2011年中央公共卫生国家扩大免疫规划专项资金疫苗项目中标公告'}, {'name': '2012-03-12'}, {'name': 'https://www.tianyancha.com/bid/6dedb98a258411e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2026227'}, {'name': '甘肃省疾控中心'}], [{'name': '长春市'}, {'name': '赣州市'}, {'name': '赣州市卫生局一类疫苗招标采购项目(重招)中标公告Ⅱ（项目编号：JXGZ-HW-1202）'}, {'name': '2012-03-06'}, {'name': 'https://www.tianyancha.com/bid/2aca06f3258a11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2019469'}, {'name': '赣州市卫生局'}], [{'name': '长春市'}, {'name': '广西壮族自治区'}, {'name': '广西科文招标有限公司疫苗及注射器采购（GXZC2011-G1-40041-KW）中标公告'}, {'name': '2012-02-21'}, {'name': 'https://www.tianyancha.com/bid/f1ec2374259d11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2001984'}, {'name': '广西壮族自治区卫生厅'}], [{'name': '长春市'}, {'name': '浙江省'}, {'name': '浙江省成套招标代理有限公司关于二类疫苗的成交结果公示'}, {'name': '2012-02-18'}, {'name': 'https://www.tianyancha.com/bid/accbad0a25a011e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1999775'}, {'name': '省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '福建省'}, {'name': '福建省机电设备招标公司关于福建省疾病预防控制中心2012年度第一类疫苗采购项目的中选结果公示'}, {'name': '2012-01-17'}, {'name': 'https://www.tianyancha.com/bid/86c189e325bb11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1974520'}, {'name': '福建省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '浙江省'}, {'name': '浙江省成套招标代理有限公司关于二类疫苗的预成交结果公示'}, {'name': '2012-01-16'}, {'name': 'https://www.tianyancha.com/bid/730a805b25bc11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1973660'}, {'name': '浙江省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '河南省'}, {'name': '河南省卫生厅2012年扩大国家免疫规划疫苗注射器采购项目竞争性谈判成交公告'}, {'name': '2012-01-16'}, {'name': 'https://www.tianyancha.com/bid/3bb8bb0625bd11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1972851'}, {'name': '河南省卫生厅'}], [{'name': '长春市'}, {'name': '浙江省'}, {'name': '浙江省政府采购中心关于疫苗的中标结果公示'}, {'name': '2011-11-09'}, {'name': 'https://www.tianyancha.com/bid/07a84c541fff11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1865021'}, {'name': '省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '河南省'}, {'name': '关于河南省疾病预防控制中心2011年9月二类疫苗定点采购供应商入围项目的中标公告'}, {'name': '2011-09-06'}, {'name': 'https://www.tianyancha.com/bid/e81dceaf1d2b11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1769349'}, {'name': '河南省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '莆田市'}, {'name': '莆田市四通招标代理有限公司关于二类疫苗采购PTST20100736的中标公告'}, {'name': '2010-09-27'}, {'name': 'https://www.tianyancha.com/bid/929f41971b2a11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1260455'}, {'name': '莆田市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '福州市'}, {'name': '福建省福怡药械招标有限公司FYZB-X2-2010027中标公告'}, {'name': '2010-07-20'}, {'name': 'https://www.tianyancha.com/bid/03a46e211b6a11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1202602'}, {'name': '福州市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广西壮族自治区'}, {'name': '广西科文招标有限公司 疫苗及注射器采购（KWOZ2G2010136)中标公告'}, {'name': '2010-06-02'}, {'name': 'https://www.tianyancha.com/bid/f18860c91b9311e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1158367'}, {'name': '广西壮族自治区卫生厅'}], [{'name': '长春市'}, {'name': '莆田市'}, {'name': '莆田市四通招标代理有限公司二类疫苗采购PTST20090615的中标公告'}, {'name': '2009-07-23'}, {'name': 'https://www.tianyancha.com/bid/c14e2a2a1efd11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=797264'}, {'name': '莆田市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '重庆市'}, {'name': '2017年重庆市第二类疫苗供应商入围采购(17A2467)结果公告'}, {'name': '2017-09-21'}, {'name': 'https://www.tianyancha.com/bid/a60a7335b3de11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201709/t20170921_8883878.htm'}, {'name': '重庆市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '2017年中央补助广东省免疫规划项目（冻干甲型肝炎减毒活疫苗）成交公告'}, {'name': '2017-06-09'}, {'name': 'https://www.tianyancha.com/bid/1b3e306618a1413aae675f680676cf05'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201706/t20170609_8356357.htm'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '2017年中央补助广东省免疫规划项目(皮内注射用卡介苗等7种疫苗)[项目编号：0835-1701221N0351]中标公告'}, {'name': '2017-03-06'}, {'name': 'https://www.tianyancha.com/bid/bfa2c368b2a611e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201703/t20170306_7974539.htm'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '山东省'}, {'name': '山东省疾病控制中心人用疫苗中标公告'}, {'name': '2017-03-01'}, {'name': 'https://www.tianyancha.com/bid/f6f2fab4b2a611e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201703/t20170301_7963641.htm'}, {'name': '山东省疾病控制中心'}], [{'name': '长春市'}, {'name': '陕西省'}, {'name': '陕西省疾病预防控制中心二类疫苗采购项目磋商成交结果公告'}, {'name': '2016-12-14'}, {'name': 'https://www.tianyancha.com/bid/d584f50a92f911e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201612/t20161214_7738121.htm'}, {'name': '陕西省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '云南省'}, {'name': '云南省疾病预防控制中心二类疫苗公开招标入围项目入围公告'}, {'name': '2016-11-23'}, {'name': 'https://www.tianyancha.com/bid/50d79741930411e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201611/t20161123_7620869.htm'}, {'name': '云南省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '陕西省'}, {'name': '陕西省疾病预防控制中心2017年一类疫苗采购项目（A、B、C1、C2、C3、E、F、G、H、I、K包）单一来源成交公告'}, {'name': '2016-10-21'}, {'name': 'https://www.tianyancha.com/bid/a1d4d2d5932911e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201610/t20161021_7466927.htm'}, {'name': '陕西省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '2016年中央补助广东省免疫规划项目（冻干甲型肝炎减毒活疫苗）中标公告'}, {'name': '2016-09-29'}, {'name': 'https://www.tianyancha.com/bid/146b2fb2935011e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201609/t20160929_7386275.htm'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '宁夏回族自治区'}, {'name': '宁夏疾控中心2016年缓冲期流感疫苗、 23 价肺炎疫苗采购项目中标（ 成交） 公示 '}, {'name': '2016-09-28'}, {'name': 'https://www.tianyancha.com/bid/2d5a4fce935211e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201609/t20160928_7379743.htm'}, {'name': '宁夏回族自治区疾病预防控制中心'}], [{'name': '长春市'}, {'name': '河北省'}, {'name': '河北省疾病预防控制中心2017年度河北省免疫规划用疫苗及注射器竞争性谈判采购中标公告'}, {'name': '2016-06-23'}, {'name': 'https://www.tianyancha.com/bid/602f503c419b11e6a050288023a1a420'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201606/t20160623_6941522.htm'}, {'name': '河北省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '山东省'}, {'name': '山东省疾病控制中心山东省免疫规划用疫苗及监测用品中标公告'}, {'name': '2016-03-23'}, {'name': 'https://www.tianyancha.com/bid/54795fc3419b11e6a050288023a1a420'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201603/t20160323_6609323.htm'}, {'name': '山东省疾病控制中心'}], [{'name': '长春市'}, {'name': '无锡市'}, {'name': '江苏建协工程咨询有限公司关于人用狂犬病疫苗（Vero细胞）采购定点单位采购项目的中标公告'}, {'name': '2015-12-04'}, {'name': 'https://www.tianyancha.com/bid/4afe6e25419b11e6a050288023a1a420'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201512/t20151204_6266317.htm'}, {'name': '无锡市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '河北省'}, {'name': '河北省疾病预防控制中心2016年度河北省免疫规划用疫苗及注射器采购中标公告'}, {'name': '2015-10-19'}, {'name': 'https://www.tianyancha.com/bid/450dfc57419b11e6a050288023a1a420'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201510/t20151019_5987520.htm'}, {'name': '河北省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '2015年广东省免疫规划项目（冻干甲型肝炎减毒活疫苗）（重招）中标公告'}, {'name': '2015-10-14'}, {'name': 'https://www.tianyancha.com/bid/446cb4c9419b11e6a050288023a1a420'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201510/t20151014_5964450.htm'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '福州市'}, {'name': '福建省福怡药械招标有限公司福州市疾病预防控制中心二类疫苗采购中标公告'}, {'name': '2014-12-20'}, {'name': 'https://www.tianyancha.com/bid/0bcf947a92f311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201412/t20141220_4864765.htm'}, {'name': '福州市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '福州市'}, {'name': '福建省福怡药械招标有限公司福州市疾病预防控制中心二类疫苗采购中标公告'}, {'name': '2014-12-20'}, {'name': 'https://www.tianyancha.com/bid/0bd04ec192f311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201412/t20141220_4864856.htm'}, {'name': '福州市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '福州市'}, {'name': '福州市疾病预防控制中心二类疫苗采购中标公告'}, {'name': '2014-12-20'}, {'name': 'https://www.tianyancha.com/bid/0bc1b96b92f311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201412/t20141220_4863811.htm'}, {'name': '福州市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '青岛市'}, {'name': '山东省青岛市疾病预防控制中心（青岛市健康教育所）青岛疾控水痘疫苗采购项目中标公告'}, {'name': '2014-12-19'}, {'name': 'https://www.tianyancha.com/bid/0c3c575992f311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201412/t20141219_4863675.htm'}, {'name': '山东省青岛市疾病预防控制中心（青岛市健康教育所）'}], [{'name': '长春市'}, {'name': '河北省'}, {'name': '河北省疾病预防控制中心2015年度河北省免疫规划用疫苗及注射器采购中标公告'}, {'name': '2014-12-19'}, {'name': 'https://www.tianyancha.com/bid/23e42fc192f311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201412/t20141219_4861842.htm'}, {'name': '河北省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '福建省'}, {'name': '福建省疾病预防控制中心2015年度第一类疫苗采购项目中选结果公示'}, {'name': '2014-12-17'}, {'name': 'https://www.tianyancha.com/bid/a080714292f311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201412/t20141217_4852174.htm'}, {'name': '福建省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '浙江省'}, {'name': '浙江省政府采购中心关于二类疫苗的中标结果公示'}, {'name': '2014-12-05'}, {'name': 'https://www.tianyancha.com/bid/3eec569592f511e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201412/t20141205_4814400.htm'}, {'name': '省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '浙江省'}, {'name': '浙江省政府采购中心关于二类疫苗的中标结果公示'}, {'name': '2014-12-05'}, {'name': 'https://www.tianyancha.com/bid/3f60b21192f511e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201412/t20141205_4814396.htm'}, {'name': '省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '南宁市'}, {'name': '广西同泽工程项目管理有限责任公司南宁市疾病预防控制中心二类疫苗定点采购成交信息公示'}, {'name': '2014-11-27'}, {'name': 'https://www.tianyancha.com/bid/ec197db892f611e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201411/t20141127_4780141.htm'}, {'name': '南宁市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '陕西省'}, {'name': '关于陕西省疾病预防控制中心疫苗及注射器采购项目中标公告'}, {'name': '2014-11-13'}, {'name': 'https://www.tianyancha.com/bid/25c14fb392fa11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201411/t20141113_4729761.htm'}, {'name': '陕西省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广西壮族自治区'}, {'name': '广西壮族自治区疾病预防控制中心二类疫苗定点供货采购(GXZC2014-G1-1426-CGZX)中标公告'}, {'name': '2014-10-15'}, {'name': 'https://www.tianyancha.com/bid/1b1afa8192fe11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201410/t20141015_4630738.htm'}, {'name': '广西壮族自治区疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广西壮族自治区'}, {'name': '广西壮族自治区疾病预防控制中心二类疫苗定点供货采购(GXZC2014-G1-1426-CGZX)中标公告'}, {'name': '2014-10-15'}, {'name': 'https://www.tianyancha.com/bid/1fd9625092fe11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201410/t20141015_4630271.htm'}, {'name': '广西壮族自治区疾病预防控制中心'}], [{'name': '长春市'}, {'name': '南宁市'}, {'name': 'NNZC2014-10566A南宁市疾病预防控制中心二类疫苗采购中标/成交结果公告'}, {'name': '2014-10-09'}, {'name': 'https://www.tianyancha.com/bid/fa64e9d392fe11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201410/t20141009_4605944.htm'}, {'name': '南宁市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '广东省疾病预防控制中心2014财年广东省免疫规划疫苗采购项目中标公告'}, {'name': '2014-09-18'}, {'name': 'https://www.tianyancha.com/bid/55369c5b930111e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201409/t20140918_4557225.htm'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '辽宁省'}, {'name': '中央转移支付免疫规划项目中标公告'}, {'name': '2014-09-03'}, {'name': 'https://www.tianyancha.com/bid/cc4aaf0f930211e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201409/t20140903_4515325.htm'}, {'name': '无详细信息'}], [{'name': '长春市'}, {'name': '山东省'}, {'name': '山东省疾病控制中心山东省2015年度免疫规划用疫苗中标公告'}, {'name': '2014-06-26'}, {'name': 'https://www.tianyancha.com/bid/f87a9dbe930c11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201406/t20140626_4290205.htm'}, {'name': '山东省疾病控制中心'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '广东省疾病预防控制中心2014年免疫规划疫苗(重组乙型肝炎疫苗、冻干甲型肝炎减毒活疫苗)及注射器采购项目（重招）的中标（成交）公告'}, {'name': '2014-05-26'}, {'name': 'https://www.tianyancha.com/bid/215efddd931311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201405/t20140526_4195013.htm'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '广东省疾病预防控制中心2014年免疫规划疫苗采购（项目编号：0835-1401221N0041）的中标公告'}, {'name': '2014-02-25'}, {'name': 'https://www.tianyancha.com/bid/026ceefe931b11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201402/t20140225_4027883.htm'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '河北省'}, {'name': '河北省疾病预防控制中心河北省追加采购2013年度免疫规划用疫苗、注射器招标中标公告'}, {'name': '2014-02-11'}, {'name': 'https://www.tianyancha.com/bid/d1a2dc39931b11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201402/t20140211_4011071.htm'}, {'name': '河北省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '河北省'}, {'name': '河北省追加采购2013年度免疫规划用疫苗、注射器招标预中标公告'}, {'name': '2014-01-26'}, {'name': 'https://www.tianyancha.com/bid/1ee5c39e931c11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201401/t20140126_4003740.htm'}, {'name': '河北省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '莆田市'}, {'name': '莆田市四通招标代理有限公司关于PTST20130878二类疫苗采购的中标公告'}, {'name': '2014-01-22'}, {'name': 'https://www.tianyancha.com/bid/684ab5f9931c11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201401/t20140122_3997450.htm'}, {'name': '莆田市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广西壮族自治区'}, {'name': '广西科文招标有限公司疫苗及注射器采购（GXZC2013-G1-41201-KW）中标公告'}, {'name': '2014-01-15'}, {'name': 'https://www.tianyancha.com/bid/2749693c931d11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201401/t20140115_3987226.htm'}, {'name': '广西壮族自治区卫生厅'}], [{'name': '长春市'}, {'name': '浙江省'}, {'name': '浙江省政府采购中心关于二类疫苗的中标结果公示'}, {'name': '2013-12-30'}, {'name': 'https://www.tianyancha.com/bid/60ce741392f111e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201312/t20131230_3960674.htm'}, {'name': '省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '福州市'}, {'name': '福州市疾病预防控制中心二类疫苗公开招标中标公告'}, {'name': '2013-12-24'}, {'name': 'https://www.tianyancha.com/bid/e2ea258892f111e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201312/t20131224_3949652.htm'}, {'name': '福州市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '茂名市'}, {'name': '茂名市疾病预防控制中心二类疫苗采购项目（项目编号0835-1301A74N4591）中标公告'}, {'name': '2013-12-19'}, {'name': 'https://www.tianyancha.com/bid/4a709d2492f211e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201312/t20131219_3936466.htm'}, {'name': '茂名市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '河南省'}, {'name': '河南省卫生厅2014年国家免疫规划疫苗及注射器采购项目竞争性谈判成交公告'}, {'name': '2013-12-17'}, {'name': 'https://www.tianyancha.com/bid/7c65985992f211e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201312/t20131217_3931268.htm'}, {'name': '河南省卫生厅'}], [{'name': '长春市'}, {'name': '陕西省'}, {'name': '陕西省卫生厅2014年免疫规划疫苗及注射器采购项目中标公告'}, {'name': '2013-12-03'}, {'name': 'https://www.tianyancha.com/bid/dadc968292f311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201312/t20131203_3889658.htm'}, {'name': '《陕西省卫生厅'}], [{'name': '长春市'}, {'name': '江苏省'}, {'name': '2014年江苏省儿童免疫规划疫苗招标采购中标公告'}, {'name': '2013-10-24'}, {'name': 'https://www.tianyancha.com/bid/96436d6a92f811e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201310/t20131024_3856037.htm'}, {'name': '江苏省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '宿迁市'}, {'name': '宿迁市疾病预防控制中心二类疫苗采购项目中标公告'}, {'name': '2013-10-22'}, {'name': 'https://www.tianyancha.com/bid/cf61a45192f811e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201310/t20131022_3788395.htm'}, {'name': '宿迁市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广西壮族自治区'}, {'name': '广西壮族自治区政府采购中心二类疫苗定点供货采购（GXZC2012-G3-40757-ZC）中标公告'}, {'name': '2013-10-17'}, {'name': 'https://www.tianyancha.com/bid/295ff5ff92f911e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201310/t20131017_3792902.htm'}, {'name': '广西壮族自治区疾病预防控制中心'}], [{'name': '长春市'}, {'name': '青岛市'}, {'name': '青岛市疾病预防控制中心水痘疫苗采购项目中标结果公示'}, {'name': '2013-08-27'}, {'name': 'https://www.tianyancha.com/bid/6e5100c892fc11e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201308/t20130827_3539100.htm'}, {'name': '山东省青岛市疾病预防控制中心（青岛市健康教育所）'}], [{'name': '长春市'}, {'name': '北京市'}, {'name': '北京市卫生局2013年免费接种用流感疫苗项目中标结果公告'}, {'name': '2013-07-10'}, {'name': 'https://www.tianyancha.com/bid/0ce97e1c930111e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201307/t20130710_3503757.htm'}, {'name': '北京市卫生局'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '广东省疾病预防控制中心2013年免疫规划疫苗采购项目（重招）中标公告'}, {'name': '2013-05-29'}, {'name': 'https://www.tianyancha.com/bid/e1b717d6930311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201305/t20130529_3475083.htm'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '黄冈市'}, {'name': '黄冈市疾病预防控制中心遴选二类疫苗配送企业项目中标公示'}, {'name': '2013-05-28'}, {'name': 'https://www.tianyancha.com/bid/f30f9c5f930311e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201305/t20130528_3474505.htm'}, {'name': '黄冈市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '武汉市'}, {'name': '武汉市疾病预防控制中心2013年二类疫苗采购项目中标结果公告'}, {'name': '2013-04-02'}, {'name': 'https://www.tianyancha.com/bid/48714cd3930711e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201304/t20130402_3442814.htm'}, {'name': '武汉市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '广东省疾病预防控制中心2013年免疫规划疫苗采购项目中标公告'}, {'name': '2013-03-07'}, {'name': 'https://www.tianyancha.com/bid/5e6b2a27930811e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201303/t20130307_3433337.htm'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广西壮族自治区'}, {'name': '广西科文招标有限公司疫苗及注射器采购GXZC2013-G1-40030-KW中标公告'}, {'name': '2013-02-20'}, {'name': 'https://www.tianyancha.com/bid/05be882b930911e7837d6c92bf3b6045'}, {'name': 'http://www.ccgp.gov.cn/cggg/dfgg/zbgg/201302/t20130220_3427348.htm'}, {'name': '广西壮族自治区卫生厅'}], [{'name': '长春市'}, {'name': '吉林省'}, {'name': '吉林省卫生厅疫苗(第二次)项目成交结果公告'}, {'name': '2012-11-21'}, {'name': 'https://www.tianyancha.com/bid/6282fe8c207e11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2464964'}, {'name': '吉林省卫生厅'}], [{'name': '长春市'}, {'name': '福州市'}, {'name': '福州市疾病预防控制中心二类疫苗采购中标公告'}, {'name': '2012-11-14'}, {'name': 'https://www.tianyancha.com/bid/06951afb209211e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2449189'}, {'name': '福州市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '莆田市'}, {'name': '莆田市四通招标代理有限公司关于PTST20120863二类疫苗采购的中标公告'}, {'name': '2012-10-25'}, {'name': 'https://www.tianyancha.com/bid/c91ff11a20bf11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2417690'}, {'name': '莆田市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '莆田市'}, {'name': '莆田市四通招标代理有限公司关于二类疫苗采购项目-补充公告'}, {'name': '2012-10-25'}, {'name': 'https://www.tianyancha.com/bid/cec7f4f520c011e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2409064'}, {'name': '莆田市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '江苏省'}, {'name': '江苏省疾病预防控制中心2013年江苏省儿童免疫规划用疫苗招标采购中标公告'}, {'name': '2012-10-16'}, {'name': 'https://www.tianyancha.com/bid/716902df20d511e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2390378'}, {'name': '江苏省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '贵州省'}, {'name': '贵州省卫生厅2012年度扩大免疫规划疫苗注射器和脊灰实验室设备采购项目中标结果公示'}, {'name': '2012-10-11'}, {'name': 'https://www.tianyancha.com/bid/4da1afac20e111e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2382019'}, {'name': '贵州省卫生厅'}], [{'name': '长春市'}, {'name': '南宁市'}, {'name': 'NNZC2012-1312A南宁市疾病预防控制中心二类疫苗采购项目第10\\36\\46分标中标公告'}, {'name': '2012-09-29'}, {'name': 'https://www.tianyancha.com/bid/a252ea12227811e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2373174'}, {'name': '南宁市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '南宁市'}, {'name': 'NNZC2012-1312A南宁市疾病预防控制中心二类疫苗采购中标/成交结果公告'}, {'name': '2012-09-19'}, {'name': 'https://www.tianyancha.com/bid/bdc9589323bb11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2349099'}, {'name': '南宁市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '陕西省'}, {'name': '陕西省药械招标有限公司关于陕西省卫生厅疫苗招标采购项目成交公告'}, {'name': '2012-08-29'}, {'name': 'https://www.tianyancha.com/bid/14bacdaa23d511e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2312027'}, {'name': '陕西省卫生厅'}], [{'name': '长春市'}, {'name': '河南省'}, {'name': '关于河南省疾病预防控制中心2012年9月二类疫苗定点采购供应商项目的中标公告'}, {'name': '2012-08-29'}, {'name': 'https://www.tianyancha.com/bid/4b27b36c213811e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2310272'}, {'name': '河南省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '陕西省'}, {'name': '陕西省卫生厅疫苗及注射器采购项目中标公告'}, {'name': '2012-08-27'}, {'name': 'https://www.tianyancha.com/bid/a9a304d3213c11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2307033'}, {'name': '陕西省卫生厅'}], [{'name': '长春市'}, {'name': '广东省'}, {'name': '广东省疾病预防控制中心2012年免疫规划疫苗采购（重招）项目成交公告'}, {'name': '2012-08-03'}, {'name': 'https://www.tianyancha.com/bid/a5f5d45e216a11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2264923'}, {'name': '广东省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '包头市'}, {'name': '包头市疾病控制中心疫苗资质政府采购公开招标公告中标公告(项目编号=包采公〔2012〕142号)'}, {'name': '2012-05-14'}, {'name': 'https://www.tianyancha.com/bid/a05081a921e111e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2117310'}, {'name': '包头市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '景德镇市'}, {'name': '江西鑫田招标咨询有限公司关于江西省景德镇市卫生局疫苗及注射器项目（文件编号：JXXT2012009）成交公告'}, {'name': '2012-05-08'}, {'name': 'https://www.tianyancha.com/bid/31178e20242d11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2109549'}, {'name': '景德镇市卫生局'}], [{'name': '长春市'}, {'name': '上饶市'}, {'name': '江西上饶市市本级政府采购中心关于上饶市卫生局采购疫苗项目的成交公告'}, {'name': '2012-03-28'}, {'name': 'https://www.tianyancha.com/bid/35f637f7256b11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2050692'}, {'name': '上饶市卫生局'}], [{'name': '长春市'}, {'name': '九江市'}, {'name': '江西省九江市公共资源交易中心政府采购部关于九江市儿童免疫规划一类疫苗采购项目废标后重新招标的中标公告'}, {'name': '2012-03-14'}, {'name': 'https://www.tianyancha.com/bid/f89cd70b258011e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2030799'}, {'name': '九江市卫生局'}], [{'name': '长春市'}, {'name': '甘肃省'}, {'name': '甘肃省疾控中心2011年中央公共卫生国家扩大免疫规划专项资金疫苗项目中标公告'}, {'name': '2012-03-12'}, {'name': 'https://www.tianyancha.com/bid/6dedb98a258411e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2026227'}, {'name': '甘肃省疾控中心'}], [{'name': '长春市'}, {'name': '赣州市'}, {'name': '赣州市卫生局一类疫苗招标采购项目(重招)中标公告Ⅱ（项目编号：JXGZ-HW-1202）'}, {'name': '2012-03-06'}, {'name': 'https://www.tianyancha.com/bid/2aca06f3258a11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2019469'}, {'name': '赣州市卫生局'}], [{'name': '长春市'}, {'name': '广西壮族自治区'}, {'name': '广西科文招标有限公司疫苗及注射器采购（GXZC2011-G1-40041-KW）中标公告'}, {'name': '2012-02-21'}, {'name': 'https://www.tianyancha.com/bid/f1ec2374259d11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=2001984'}, {'name': '广西壮族自治区卫生厅'}], [{'name': '长春市'}, {'name': '浙江省'}, {'name': '浙江省成套招标代理有限公司关于二类疫苗的成交结果公示'}, {'name': '2012-02-18'}, {'name': 'https://www.tianyancha.com/bid/accbad0a25a011e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1999775'}, {'name': '省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '福建省'}, {'name': '福建省机电设备招标公司关于福建省疾病预防控制中心2012年度第一类疫苗采购项目的中选结果公示'}, {'name': '2012-01-17'}, {'name': 'https://www.tianyancha.com/bid/86c189e325bb11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1974520'}, {'name': '福建省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '浙江省'}, {'name': '浙江省成套招标代理有限公司关于二类疫苗的预成交结果公示'}, {'name': '2012-01-16'}, {'name': 'https://www.tianyancha.com/bid/730a805b25bc11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1973660'}, {'name': '浙江省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '河南省'}, {'name': '河南省卫生厅2012年扩大国家免疫规划疫苗注射器采购项目竞争性谈判成交公告'}, {'name': '2012-01-16'}, {'name': 'https://www.tianyancha.com/bid/3bb8bb0625bd11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1972851'}, {'name': '河南省卫生厅'}], [{'name': '长春市'}, {'name': '浙江省'}, {'name': '浙江省政府采购中心关于疫苗的中标结果公示'}, {'name': '2011-11-09'}, {'name': 'https://www.tianyancha.com/bid/07a84c541fff11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1865021'}, {'name': '省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '河南省'}, {'name': '关于河南省疾病预防控制中心2011年9月二类疫苗定点采购供应商入围项目的中标公告'}, {'name': '2011-09-06'}, {'name': 'https://www.tianyancha.com/bid/e81dceaf1d2b11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1769349'}, {'name': '河南省疾病预防控制中心'}], [{'name': '长春市'}, {'name': '莆田市'}, {'name': '莆田市四通招标代理有限公司关于二类疫苗采购PTST20100736的中标公告'}, {'name': '2010-09-27'}, {'name': 'https://www.tianyancha.com/bid/929f41971b2a11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1260455'}, {'name': '莆田市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '福州市'}, {'name': '福建省福怡药械招标有限公司FYZB-X2-2010027中标公告'}, {'name': '2010-07-20'}, {'name': 'https://www.tianyancha.com/bid/03a46e211b6a11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1202602'}, {'name': '福州市疾病预防控制中心'}], [{'name': '长春市'}, {'name': '广西壮族自治区'}, {'name': '广西科文招标有限公司 疫苗及注射器采购（KWOZ2G2010136)中标公告'}, {'name': '2010-06-02'}, {'name': 'https://www.tianyancha.com/bid/f18860c91b9311e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=1158367'}, {'name': '广西壮族自治区卫生厅'}], [{'name': '长春市'}, {'name': '莆田市'}, {'name': '莆田市四通招标代理有限公司二类疫苗采购PTST20090615的中标公告'}, {'name': '2009-07-23'}, {'name': 'https://www.tianyancha.com/bid/c14e2a2a1efd11e8837d6c92bf3b6045'}, {'name': 'http://search.ccgp.gov.cn/oldsearch/detail?docId=797264'}, {'name': '莆田市疾病预防控制中心'}]]
+
+
+var convertData = function (data) {
+    var res = [];
+    for (var i = 0; i < data.length; i++) {
+        var dataItem = data[i];
+
+        var fromCoord = geoCoordMap[dataItem[0].name];
+        var toCoord = geoCoordMap[dataItem[1].name];
+        if (fromCoord && toCoord) {
+            debugger
+            res.push({
+        
+                // Geo 无法使用tootip ，暂时写在这里
+                fromName: dataItem[0].name,
+                toName:  dataItem[1].name+" "+'【'+dataItem[3].name+' '+ dataItem[6].name+''+' —— '+dataItem[2].name+'】',
+                coords: [fromCoord, toCoord]
+            });
+        }
+      
+    }
+
+    return res;
+};
+
+let convertDataToToolTip = function(data){
+    var res = [];
+    for (var i = 0;i<data.length;i++){
+        var dataItem = data[i];
+        res.push({
+            name:dataItem[1].name,
+            value:dataItem[2].name
+        })
+    }
+    debugger
+    return res;
+}
+
+var series = [];
+series.push(
+    {
+        type: 'lines',
+        zlevel: 6,
+        symbol: ['none', 'arrow'],
+        symbolSize: 5,
+        effect: {
+            show: true,
+            period: 6,
+            trailLength: 0,
+            symbolSize: 4
+        },
+        lineStyle: {
+            normal: {
+                color: '#ffa022',
+                width: 1,
+                opacity: 0.3,
+                curveness: 0.2
+            }
+        },
+        data: convertData(CCDATA)
+    },
+    {
+        type: 'effectScatter',
+        coordinateSystem: 'geo',
+        zlevel: 2,
+        rippleEffect: {
+            brushType: 'stroke'
+        },
+        label: {
+            normal: {
+                show: true,
+                position: 'right',
+                formatter: function(param){
+                    return param.name
+                }
+            }
+        },
+        symbolSize: function (val) {
+            return val[2] / 8;
+        },
+        itemStyle: {
+            normal: {
+                color: '#ffa022'
+            }
+        },
+        hoverAnimation: true,
+        data: CCDATA.map(function (dataItem) {
+            debugger
+            return {
+                name: dataItem[1].name,
+                value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+            };
+        })
+    },
+   );
+
+
+option = {
+    backgroundColor: '#404a59',
+    title : {
+        text: '长春长生疫苗采购中标省份流向',
+        subtext: '数据来源：中国政府采购网',
+        left: 'center',
+        textStyle : {
+            color: '#fff'
+        }
+    },
+    tooltip : {
+        trigger: 'item'
+    },
+    geo: {
+        map: 'china',
+        label: {
+            emphasis: {
+                show: false
+            }
+        },
+        roam: true,
+        itemStyle: {
+            normal: {
+                areaColor: '#323c48',
+                borderColor: '#404a59'
+            },
+            emphasis: {
+                areaColor: '#2a333d'
+            }
+        }
+    },
+    series: series
+};
+myChart.setOption(option);
+
+
+</script>
+</body>
+</html>
+
+
