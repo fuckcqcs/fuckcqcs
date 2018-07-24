@@ -46,7 +46,7 @@ global_headers = {
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
-    "Host": "www.tianyancha.com",
+    "Host": "www.ccgp_data.com",
     "DNT": "1",
     "Pragma": "no-cache",
     "Upgrade-Insecure-Requests": "1"
@@ -54,7 +54,7 @@ global_headers = {
 
 
 def fetch_remote_html(page: int = 1) -> dict:
-    uri = 'https://www.tianyancha.com/pagination/bid.xhtml?ps=30&pn=%s&id=2322751222' % page
+    uri = 'https://www.ccgp_data.com/pagination/bid.xhtml?ps=30&pn=%s&id=2322751222' % page
     try:
         r = requests.get(url=uri, headers=global_headers, cookies=cookies_string_to_dict(global_cookies))
         time.sleep(6)
